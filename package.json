@@ -1,0 +1,18 @@
+{
+  "name": "vgt-selenium-tests",
+  "version": "1.0.0",
+  "private": true,
+  "config": {
+    "url": "http://localhost:8080/"
+  },
+  "scripts": {
+    "test": "env HEADLESS=false mocha test.spec.js --require mocha-steps",
+    "headless": "env HEADLESS=true mocha test.spec.js --require mocha-steps"
+  },
+  "dependencies": {
+    "geckodriver": "^4.4.0",
+    "mocha": "^10.4.0",
+    "mocha-steps": "^1.3.0",
+    "selenium-webdriver": "^4.20.0"
+  }
+}
