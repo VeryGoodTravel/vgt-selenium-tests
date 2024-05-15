@@ -29,6 +29,19 @@ yarn test
 yarn headless
 ```
 
+## Tests configuration
+
+Configuration is available in `package.json` in section **config**:
+
+| **Config**       | **Explanation**                                                             |
+|------------------|-----------------------------------------------------------------------------|
+| url              | Base url to hosted web app                                                  |
+| login            | Login used during login tests                                               |
+| password         | Password used during login tests                                            |
+| start_date_index | Date start number used during calendar tests *(best to set between (7-23))* |
+| end_date_index   | Date end number used during calendar tests *(best to set between (7-23))*   |
+| purchase_success | Whether we expect offer purchase to be succesful or not                     |
+
 ## Issues while running tests
 
 ### Firefox issues
