@@ -66,7 +66,7 @@ suite((env) => {
         });
 
         step('Checking destinations menu', async () => {
-            const anySelectionLabel = 'Gdziekolwiek';
+            const anySelectionLabel = 'Wybierz miejsca wylotu';
             const destinationSelection = await driver.findElement(By.id('destination-selection'));
             const destinationMenu = await driver.findElement(By.id('destination-menu'));
             assert.equal(await destinationSelection.getText(), anySelectionLabel, '\'Any\' isn\'t set for destinations initially');
@@ -157,7 +157,7 @@ suite((env) => {
         });
 
         step('Checking origins menu', async () => {
-            const anySelectionLabel = 'Skądkolwiek';
+            const anySelectionLabel = 'Wybierz miejsca wycieczki';
             const originSelection = await driver.findElement(By.id('origin-selection'));
             const originMenu = await driver.findElement(By.id('origin-menu'));
             assert.equal(await originSelection.getText(), anySelectionLabel, '\'Any\' isn\'t set for origins initially');
@@ -255,22 +255,38 @@ suite((env) => {
             const dateSelection = await driver.findElement(By.id('date-selection'));
             const originSelection = await driver.findElement(By.id('origin-selection'));
             const participantsSelection = await driver.findElement(By.id('participants-selection'));
-            assert.notEqual(await destinationSelection.getText(), 'Gdziekolwiek', 'Destination filter should be set to something other than \'any\'');
+            assert.notEqual(await destinationSelection.getText(), 'Wybierz miejsca wylotu', 'Destination filter should be set to something other than \'any\'');
             const dateString = await dateSelection.getText();
-            assert.notEqual(await originSelection.getText(), 'Skądkolwiek', 'Origin filter should be set to something other than \'any\'');
+            assert.notEqual(await originSelection.getText(), 'Wybierz miejsca wycieczki', 'Origin filter should be set to something other than \'any\'');
             assert.notEqual(await participantsSelection.getText(), '1 osoba', 'Participants filter should be set to something other than single person');
 
             const resetButton = await driver.findElement(By.className('FilterSearchBar__reset'));
             await resetButton.click();
 
-            assert.equal(await destinationSelection.getText(), 'Gdziekolwiek', 'Destination filter should be reset to \'any\'');
+            assert.equal(await destinationSelection.getText(), 'Wybierz miejsca wylotu', 'Destination filter should be reset to \'any\'');
             assert.notEqual(await dateSelection.getText(), dateString, 'Selected date didn\'t reset');
-            assert.equal(await originSelection.getText(), 'Skądkolwiek', 'Origin filter should be reset to \'any\'');
+            assert.equal(await originSelection.getText(), 'Wybierz miejsca wycieczki', 'Origin filter should be reset to \'any\'');
             assert.equal(await participantsSelection.getText(), '1 osoba', 'Participants filter should be reset to single person');
         });
 
+        step('Select search filters', async () => {
+            const destinationSelection = await driver.findElement(By.id('destination-selection'));
+            await destinationSelection.click();
+            const destinationMenu = await driver.findElement(By.id('destination-menu'));
+            const destinationRootItem = (await destinationMenu.findElements(By.className('Root')))[0];
+            const destinationRootItemCheckbox = await destinationRootItem.findElement(By.className('FilterListItem__item--checkbox'));
+            await destinationRootItemCheckbox.click();
+
+            const originSelection = await driver.findElement(By.id('origin-selection'));
+            await originSelection.click();
+            const originMenu = await driver.findElement(By.id('origin-menu'));
+            const originRootItem = (await originMenu.findElements(By.className('Root')))[0];
+            const originRootItemCheckbox = await originRootItem.findElement(By.className('FilterListItem__item--checkbox'));
+            await originRootItemCheckbox.click();
+        });
+
         step('Go to offers list', async () => {
-            const searchButton = await driver.findElement(By.className('FilterSearchBar__search-image'));
+            const searchButton = await driver.findElement(By.className('FilterSearchBar__search-button'));
             await searchButton.click();
             assert.equal((await driver.getCurrentUrl()).toString().split('/').includes('offers'), true, 'Going to offers page failed');
             assert.equal((await driver.getCurrentUrl()).toString().split('/').pop(), 1, 'First page of offers wasn\'t selected');
