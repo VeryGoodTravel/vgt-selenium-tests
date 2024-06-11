@@ -66,7 +66,7 @@ suite((env) => {
         });
 
         step('Checking destinations menu', async () => {
-            const anySelectionLabel = 'Wybierz miejsca wylotu';
+            const anySelectionLabel = 'Wybierz miejsca wycieczki';
             const destinationSelection = await driver.findElement(By.id('destination-selection'));
             const destinationMenu = await driver.findElement(By.id('destination-menu'));
             assert.equal(await destinationSelection.getText(), anySelectionLabel, '\'Any\' isn\'t set for destinations initially');
@@ -157,7 +157,7 @@ suite((env) => {
         });
 
         step('Checking origins menu', async () => {
-            const anySelectionLabel = 'Wybierz miejsca wycieczki';
+            const anySelectionLabel = 'Wybierz miejsca wylotu';
             const originSelection = await driver.findElement(By.id('origin-selection'));
             const originMenu = await driver.findElement(By.id('origin-menu'));
             assert.equal(await originSelection.getText(), anySelectionLabel, '\'Any\' isn\'t set for origins initially');
@@ -255,17 +255,17 @@ suite((env) => {
             const dateSelection = await driver.findElement(By.id('date-selection'));
             const originSelection = await driver.findElement(By.id('origin-selection'));
             const participantsSelection = await driver.findElement(By.id('participants-selection'));
-            assert.notEqual(await destinationSelection.getText(), 'Wybierz miejsca wylotu', 'Destination filter should be set to something other than \'any\'');
+            assert.notEqual(await destinationSelection.getText(), 'Wybierz miejsca wycieczki', 'Destination filter should be set to something other than \'any\'');
             const dateString = await dateSelection.getText();
-            assert.notEqual(await originSelection.getText(), 'Wybierz miejsca wycieczki', 'Origin filter should be set to something other than \'any\'');
+            assert.notEqual(await originSelection.getText(), 'Wybierz miejsca wylotu', 'Origin filter should be set to something other than \'any\'');
             assert.notEqual(await participantsSelection.getText(), '1 osoba', 'Participants filter should be set to something other than single person');
 
             const resetButton = await driver.findElement(By.className('FilterSearchBar__reset'));
             await resetButton.click();
 
-            assert.equal(await destinationSelection.getText(), 'Wybierz miejsca wylotu', 'Destination filter should be reset to \'any\'');
+            assert.equal(await destinationSelection.getText(), 'Wybierz miejsca wycieczki', 'Destination filter should be reset to \'any\'');
             assert.notEqual(await dateSelection.getText(), dateString, 'Selected date didn\'t reset');
-            assert.equal(await originSelection.getText(), 'Wybierz miejsca wycieczki', 'Origin filter should be reset to \'any\'');
+            assert.equal(await originSelection.getText(), 'Wybierz miejsca wylotu', 'Origin filter should be reset to \'any\'');
             assert.equal(await participantsSelection.getText(), '1 osoba', 'Participants filter should be reset to single person');
         });
 
