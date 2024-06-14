@@ -1,5 +1,5 @@
 // selenium
-const { By } = require('selenium-webdriver');
+const { By, until } = require('selenium-webdriver');
 const { suite } = require('selenium-webdriver/testing');
 const firefox = require('selenium-webdriver/firefox');
 require('geckodriver');
@@ -30,6 +30,7 @@ suite((env) => {
                     .forBrowser('firefox')
                     .build();
             }
+            driver.manage().window().maximize();
         });
 
         after(async () => await driver.quit());
@@ -383,8 +384,10 @@ suite((env) => {
             assert.equal((await driver.getCurrentUrl()).toString().split('/').pop(), offerID, 'Returned to wrong page after logging from offer details');
 
             const purchaseButton = await driver.findElement(By.className('Details__content--summary-row-button'));
+            await driver.wait(until.elementIsVisible(purchaseButton), 1000);
             await purchaseButton.click();
 
+            await driver.wait(until.elementLocated(By.className('ModalScreen')), 90000);
             const modalScreen = await driver.findElement(By.className('ModalScreen'));
             if (config.purchase_success) {
                 const successModal = await modalScreen.findElement(By.className('PurchaseSuccessModal'));
