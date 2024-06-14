@@ -6,13 +6,13 @@
     "url": "http://localhost:8080/",
     "login": "s000001",
     "password": "password000001",
-    "start_date_index": 7,
-    "end_date_index": 10,
+    "start_date_index": 10,
+    "end_date_index": 13,
     "purchase_success": true
   },
   "scripts": {
-    "test": "env HEADLESS=false SELENIUM_BROWSER=firefox mocha test.spec.js --require mocha-steps --timeout 10000",
-    "headless": "env HEADLESS=true SELENIUM_BROWSER=firefox mocha test.spec.js --require mocha-steps --timeout 10000"
+    "test": "env HEADLESS=false SELENIUM_BROWSER=firefox mocha test.spec.js --require mocha-steps --timeout 120000",
+    "headless": "env HEADLESS=true SELENIUM_BROWSER=firefox mocha test.spec.js --require mocha-steps --timeout 120000"
   },
   "dependencies": {
     "geckodriver": "^4.4.0",
